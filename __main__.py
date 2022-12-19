@@ -32,6 +32,29 @@ def next_turn(snake,food):
         canvas.delete(snake.squares[-1]) 
         food=Food()
 
+
+
+    def change_direction(new_direction):
+        if new_direction=='left':
+            if direction!='right':
+                direction=new_direction 
+        elif new_direction =='right':
+            if direction!='left':
+                direction=new_direction
+        elif new_direction =='up':
+            if direction!='down':
+                direction=new_direction
+        elif new_direction=='right':
+            if direction!='left':
+                direction=new_direction
+        elif new_direction=='up':
+            if direction!='down':
+                direction=new_direction
+        elif new_direction=='down':
+            if direction!='up':
+                direction=new_direction    
+
+
     def check_collisions(snake):
         x,y= snake.coordinates[0]
         if x< 0 or x> = GAME_WIDTH:
@@ -44,9 +67,29 @@ def next_turn(snake,food):
             return TRUE
         return False
 
+                                                   
 
-    def change_direction(new_direction):
-        if new_direction=='left':
-            if direction!='right':
-                direction=new_direction                
+window=Tk()
+window.title('snake game')
+score =0
+direction='down'
+label=Label(window,text='score:{}'.format (score), font=('consolas',4))
+label.pack()
+canvas=Canvas(window,text,bg=BACKGROUND_COLOR,height=GAME_HEIGHT,width=GAME_WIDTH)
+canvas.packwindow.update()
+window_width=window.winfo_width()
+window_height=window.winfo_height()
+screen_width=window.winfo_screenwidth()
+screen_height=window.winfo_screenheight()
+x= int((screen_width/2) -(window_width/2))
+y= int((screen_height/2) -(window_height/2))
+window.geometry(f"({window_width}*{window_height}+{x} +{y}")
+window.bind('<left>',lambda event:change_direction('left'))
+window.bind('<right>',lambda event:change_direction('right'))
+window.bind('<left>',lambda event:change_direction('left'))
+window.bind('<right>',lambda event:change_direction('right'))
+snake=Snake()
+food=Food()
+next_turn(snake,food)
+window.mainloop()
 
